@@ -6,10 +6,13 @@
 #define CHIPSET APA102
 #define NUM_LEDS 136
 #define BRIGHTNESS 10
-#define GAME_TICK 50
-#define FIRE_RATE 5
-#define BEAM_SPEED 1
-#define INVADER_SPEED 20
+#define FIRE_RATE 250
+#define BEAM_SPEED 50
+#define INVADER_X_SPEED 300
+#define INVADER_Y_SPEED 2000
+#define INVADER_FIRE_RATE 500
+#define INPUT_DEBOUNCE 30
+#define ANIMATION_RATE 10
 
 CRGB leds[NUM_LEDS];
 
@@ -81,7 +84,7 @@ long explodeAnimation[8] = {
 };
 
 long blasterColor[4] = {
-  0xff8800,
+  0xffffff,
   0xff8800,
   0xff8800,
   0xff8800
@@ -95,10 +98,14 @@ long invaderColor[4] = {
 };
 
 boolean fire_enable = true;
-boolean invader_update = false;
 int fire_tick = 0;
 int beam_tick = 0;
-int invader_tick = 0;
+int invader_x_tick = 0;
+int invader_y_tick = 0;
+int input_tick = 0;
+int animation_tick = 0;
+int invader_fire_tick = 0;
+boolean invader_direction = 0;
 
 byte hue = 0;
 
@@ -112,14 +119,14 @@ void setup(){
   pinMode(11, INPUT_PULLUP);
   pinMode(14, INPUT_PULLUP);
 
+  randomSeed(analogRead(A0));
+
   level_1();
 
 }
 
 
 void loop(){
-
-  delay(GAME_TICK);
 
   hue++;
 
@@ -130,6 +137,13 @@ void loop(){
      fire_tick++;
   }
 
+  if(invader_fire_tick > INVADER_FIRE_RATE){
+    invaderFire();
+    invader_fire_tick = 0; 
+  }else{
+     invader_fire_tick++;
+  }  
+
   if(beam_tick > BEAM_SPEED){
     updateBeams();
     beam_tick = 0; 
@@ -137,17 +151,38 @@ void loop(){
      beam_tick++;
   }
   
-  if(invader_tick > INVADER_SPEED){
-    invader_update = true;
-    invader_tick = 0; 
+  if(invader_x_tick > INVADER_X_SPEED){
+    scootInvaders();  
+    invader_x_tick = 0; 
   }else{
-     invader_tick++;
+    invader_x_tick++;
   }
+
+  if(invader_y_tick > INVADER_Y_SPEED){
+    dropInvaders();  
+    invader_y_tick = 0; 
+  }else{
+    invader_y_tick++;
+  }  
+
+  if(input_tick > INPUT_DEBOUNCE){
+    checkInput();
+    input_tick = 0; 
+  }else{
+     input_tick++;
+  }  
+
+ if(animation_tick > ANIMATION_RATE){
+    updateAnimations();
+    animation_tick = 0; 
+  }else{
+     animation_tick++;
+  }    
   
   checkCollision();
-  checkInput();
-  updateInvaderPos();  
-  updateAnimations();
+  updateLEDs();
+
+  checkGamestate();
 
   FastLED.show();
 
@@ -253,32 +288,50 @@ void checkInput(){
 void updateBeams(){
   
   for(int pos = 0; pos<72; pos++){
-    if(beamField[pos] > 0 && beamField[pos] < 30){
-      
-       if(beamField[pos] < 19){
+    if(beamField[pos] > 18 && beamField[pos] < 30){
+      //going up
+        if(pos>7){
+          beamField[pos-8] = beamField[pos-8] + beamField[pos];
+          beamField[pos] = 0;   
+        }else{
+          beamField[pos] = 0;      
+        }
+      }
+  }
+
+
+  for(int pos = 71; pos>=0; pos--){
+    
+       if(beamField[pos] > 0 && beamField[pos] < 19){
         //going down
-          if(pos<56){
+          if(pos<64){
             beamField[pos+8] = beamField[pos+8] + beamField[pos];
             beamField[pos] = 0;
           }else{
             beamField[pos] = 0;
           }
-       }else{
-        //going up
-          if(pos>7){
-            beamField[pos-8] = beamField[pos-8] + beamField[pos];
-            beamField[pos] = 0;   
-          }else{
-            beamField[pos] = 0;      
-          }
        }
-       
+  }
+
+}
+
+void updateAnimations(){
+
+    // update frame numbers
+  for(int pos = 0; pos<64; pos++){
+    if(invaderField[pos]>0 && invaderField[pos]<10){
+      invaderField[pos]--;
+    }
+    if(pos<8){
+      if(blasterCol[pos]>0 && blasterCol[pos]<10){
+        blasterCol[pos]--;
+      }
     }
   }
   
 }
 
-void updateAnimations(){
+void updateLEDs(){
 
   // update FastLED Buffer
   for(int pos = 0; pos<64; pos++){
@@ -304,20 +357,141 @@ void updateAnimations(){
       }
     }
   }
+ 
+}
 
-  // update frame numbers
-  for(int pos = 0; pos<64; pos++){
-    if(invaderField[pos]>0 && invaderField[pos]<10){
-      invaderField[pos]--;
-    }
-    if(pos<8){
-      if(blasterCol[pos]>0 && blasterCol[pos]<10){
-        blasterCol[pos]--;
+void scootInvaders(){
+
+  if(invader_direction){
+
+    boolean edge_detect = false;
+    for(int i = 0; i < 72; i++){
+      if( i%8 == 0 && invaderField[i] > 9 ){
+        edge_detect = true;
       }
     }
+
+    if(edge_detect){
+      invader_direction = 0;
+      for(int i = 71; i > 0; i--){
+        invaderField[i] = invaderField[i-1];
+      }
+      invaderField[0] = 0;
+    }else{
+      for(int i = 0; i < 71; i++){
+        invaderField[i] = invaderField[i+1];
+      }
+    }
+    
+  }else{
+
+    boolean edge_detect = false;
+    for(int i = 0; i < 72; i++){
+      if( i%8 == 7 && invaderField[i] > 9 ){
+        edge_detect = true;
+      }
+    }
+
+    if(edge_detect){
+      invader_direction = 1;
+      for(int i = 0; i < 71; i++){
+        invaderField[i] = invaderField[i+1];
+      }      
+    }else{
+      for(int i = 71; i > 0; i--){
+        invaderField[i] = invaderField[i-1];
+      }      
+      invaderField[0] = 0;
+    }
+    
   }
   
 }
 
-void updateInvaderPos(){
+void dropInvaders(){
+
+  for(int i = 71; i > 7; i--){
+    invaderField[i] = invaderField[i-8];
   }
+
+  for(int i = 0; i < 8; i++){
+    invaderField[i] = 0;
+  }
+  
+}
+
+void checkGamestate(){
+
+  boolean invadersDefeated = true;
+  for(int i = 0; i < 64; i++){
+    if(invaderField[i] > 0){
+      invadersDefeated = false;
+    }
+  }
+
+  boolean playerDefeated = true;
+  for(int i = 0; i < 8; i++){
+    if(blasterCol[i] > 0){
+      playerDefeated = false;
+    }
+  }
+
+  if(playerDefeated){
+
+    dieAnimation();
+    while(1);
+    
+  }else if(invadersDefeated){
+
+    winAnimation();
+    while(1);
+    
+  }
+  
+}
+
+void invaderFire(){
+
+  for(int col = 56; col < 64; col++){
+    
+    for(int row = 0; row < 7; row++){
+
+      if( invaderField[col-(8*row)] > 9 ){
+
+        if(random(0,100)>70){
+
+          beamField[col-(8*(row-1))] = 10;
+          
+        }
+        break;
+        
+      }
+      
+    }
+    
+  }
+  
+}
+
+void dieAnimation(){
+
+  for(int frame = 8; frame >= 0; frame--){
+    delay(500);
+    fill_solid(leds, 136, explodeAnimation[frame]);
+    FastLED.show();
+  }
+  fill_solid(leds, 136, 0x000000);
+  FastLED.show(); 
+}
+
+void winAnimation(){
+
+  byte rainbowHue = 0;
+
+  while(1){
+    rainbowHue++;
+    fill_rainbow(leds, 136, rainbowHue, 5);
+    FastLED.show();
+  }
+  
+}
