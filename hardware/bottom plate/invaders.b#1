@@ -197,7 +197,6 @@
 <vertex x="95.25" y="6.35"/>
 <vertex x="101.6" y="6.35"/>
 </polygon>
-<text x="59.69" y="16.51" size="2.54" layer="22" font="vector" ratio="15" rot="MR0">LiPo 18650</text>
 </plain>
 <libraries>
 <library name="SparkFun-LED">
