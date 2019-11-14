@@ -8,28 +8,36 @@
 #define BRIGHTNESS 10
 #define FIRE_RATE 250
 #define BEAM_SPEED 50
-#define INVADER_X_SPEED 300
-#define INVADER_Y_SPEED 2000
-#define INVADER_FIRE_RATE 500
+#define AGGRESSOR_X_SPEED 300
+#define AGGRESSOR_Y_SPEED 2000
+#define AGGRESSOR_FIRE_RATE 500
 #define INPUT_DEBOUNCE 30
 #define ANIMATION_RATE 10
 
 CRGB leds[NUM_LEDS];
 
-int IDX_Invader(int index){
+byte IDX_Invader(byte index){
   return(index+(8*(index/8)));
 }
 
-int IDX_Beam(int index){
+byte IDX_Beam(byte index){
   return(8+(index+(8*(index/8))));
 }
 
-int IDX_Blaster(int x){
+byte IDX_Blaster(byte x){
   return(128 + x);  
 }
 
+const boolean alphaSplash[305] = {
+0,1,1,0,0,1,1,0,0,1,1,0,1,1,0,1,0,0,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,1,1,0,
+1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,
+1,0,0,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,0,1,0,0,0,1,0,0,1,0,1,0,1,0,1,
+1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,1,0,
+1,1,1,0,1,1,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1
+}
 
-const int lvl1[72] = {
+
+const byte lvl1[72] = {
     0, 0, 10, 10, 10, 10, 0, 0,
     0, 0, 11, 11, 11, 11, 0, 0,
     0, 0, 12, 12, 12, 12, 0, 0,
@@ -41,7 +49,7 @@ const int lvl1[72] = {
     0, 0, 0, 0, 0, 0, 0, 0
 };
 
-/* INVADER FIELD 
+/* AGGRESSOR FIELD 
  * -------------------------
  * 0 - Vacant Space
  * 1-9 - Exploding Invader 
@@ -51,7 +59,7 @@ const int lvl1[72] = {
  * 13 - Live Invader COLOR 4
  * 
  */
-int invaderField[72];
+byte aggressorField[72];
 
  /* BEAM FIELD
   * ------------------------
@@ -63,14 +71,14 @@ int invaderField[72];
   * value > 29 on the beam field 
   * marks a beam-beam collision
   */
-int beamField[72];
+byte beamField[72];
 
  /* BLASTER COLUMN
   * ------------------------
   * 0 - Vacant Space
   * 1-9 - Exploding Blaster 
   */
-int blasterCol[8];
+byte blasterCol[8];
 
 long explodeAnimation[8] = {
   0x200000,
@@ -90,7 +98,7 @@ long blasterColor[4] = {
   0xff8800
 };
 
-long invaderColor[4] = {
+long aggressorColor[4] = {
   0x00ff00,
   0x00ffff,
   0x0000ff,
@@ -98,14 +106,14 @@ long invaderColor[4] = {
 };
 
 boolean fire_enable = true;
-int fire_tick = 0;
-int beam_tick = 0;
-int invader_x_tick = 0;
-int invader_y_tick = 0;
-int input_tick = 0;
-int animation_tick = 0;
-int invader_fire_tick = 0;
-boolean invader_direction = 0;
+double fire_tick = 0;
+double beam_tick = 0;
+double aggressor_x_tick = 0;
+double aggressor_y_tick = 0;
+double input_tick = 0;
+double animation_tick = 0;
+double aggressor_fire_tick = 0;
+boolean aggressor_direction = 0;
 
 byte hue = 0;
 
@@ -137,11 +145,11 @@ void loop(){
      fire_tick++;
   }
 
-  if(invader_fire_tick > INVADER_FIRE_RATE){
-    invaderFire();
-    invader_fire_tick = 0; 
+  if(aggressor_fire_tick > AGGRESSOR_FIRE_RATE){
+    aggressorFire();
+    aggressor_fire_tick = 0; 
   }else{
-     invader_fire_tick++;
+     aggressor_fire_tick++;
   }  
 
   if(beam_tick > BEAM_SPEED){
@@ -151,18 +159,18 @@ void loop(){
      beam_tick++;
   }
   
-  if(invader_x_tick > INVADER_X_SPEED){
+  if(aggressor_x_tick > AGGRESSOR_X_SPEED){
     scootInvaders();  
-    invader_x_tick = 0; 
+    aggressor_x_tick = 0; 
   }else{
-    invader_x_tick++;
+    aggressor_x_tick++;
   }
 
-  if(invader_y_tick > INVADER_Y_SPEED){
+  if(aggressor_y_tick > AGGRESSOR_Y_SPEED){
     dropInvaders();  
-    invader_y_tick = 0; 
+    aggressor_y_tick = 0; 
   }else{
-    invader_y_tick++;
+    aggressor_y_tick++;
   }  
 
   if(input_tick > INPUT_DEBOUNCE){
@@ -190,23 +198,23 @@ void loop(){
 
 void level_1(){
 
-  for(int i = 0; i < 72; i++){
+  for(byte i = 0; i < 72; i++){
     beamField[i] = 0;
   }
 
-  for(int i = 0; i < 8; i++){
+  for(byte i = 0; i < 8; i++){
     blasterCol[i] = 0;
   }
 
   blasterCol[3] = 10;
 
-  memcpy(invaderField, lvl1, 72);
+  memcpy(aggressorField, lvl1, 72);
 
 }
 
 void checkCollision(){
 
-  for(int i = 0; i < 72; i++){
+  for(byte i = 0; i < 72; i++){
 
     // Check for beam-beam collision
     // both beams eliminated
@@ -214,11 +222,11 @@ void checkCollision(){
       beamField[i] = 0;
     }
 
-    // Check for beam-invader collision
-    // beam eliminated, invader set to exploding
-    if(invaderField[i] > 9 && beamField[i] > 19){
+    // Check for beam-aggressor collision
+    // beam eliminated, aggressor set to exploding
+    if(aggressorField[i] > 9 && beamField[i] > 19){
       beamField[i] = 0;
-      invaderField[i] = 9;
+      aggressorField[i] = 9;
     }
 
     // Check for beam-blaster collision
@@ -228,10 +236,10 @@ void checkCollision(){
       blasterCol[i%8] = 9;      
     }
 
-    // Check for invader-blaster collision
-    // invader and blaster set to exploding
-    if(i > 63 && invaderField[i] > 9 && blasterCol[i%8] > 9){
-       invaderField[i] = 9;
+    // Check for aggressor-blaster collision
+    // aggressor and blaster set to exploding
+    if(i > 63 && aggressorField[i] > 9 && blasterCol[i%8] > 9){
+       aggressorField[i] = 9;
        blasterCol[i%8] = 9; 
     }    
     
@@ -247,8 +255,8 @@ void checkInput(){
   // FIRE 9
 
   if(digitalRead(14)==0){
-    int blasterPos;
-    for(int pos = 0; pos < 8; pos++){
+    byte blasterPos;
+    for(byte pos = 0; pos < 8; pos++){
       if(blasterCol[pos]!=0){
         blasterPos = pos;
       }
@@ -259,8 +267,8 @@ void checkInput(){
     }
   }
   if(digitalRead(10)==0){
-    int blasterPos;
-    for(int pos = 0; pos < 8; pos++){
+    byte blasterPos;
+    for(byte pos = 0; pos < 8; pos++){
       if(blasterCol[pos]!=0){
         blasterPos = pos;
       }
@@ -272,8 +280,8 @@ void checkInput(){
   }
   if(digitalRead(11) == 0 || digitalRead(9) == 0){
     if(fire_enable){
-        int blasterPos;
-        for(int pos = 0; pos < 8; pos++){
+        byte blasterPos;
+        for(byte pos = 0; pos < 8; pos++){
           if(blasterCol[pos]!=0){
             blasterPos = pos;
           }
@@ -287,7 +295,7 @@ void checkInput(){
 
 void updateBeams(){
   
-  for(int pos = 0; pos<72; pos++){
+  for(byte pos = 0; pos<72; pos++){
     if(beamField[pos] > 18 && beamField[pos] < 30){
       //going up
         if(pos>7){
@@ -300,7 +308,7 @@ void updateBeams(){
   }
 
 
-  for(int pos = 71; pos>=0; pos--){
+  for(byte pos = 71; pos>=0; pos--){
     
        if(beamField[pos] > 0 && beamField[pos] < 19){
         //going down
@@ -318,9 +326,9 @@ void updateBeams(){
 void updateAnimations(){
 
     // update frame numbers
-  for(int pos = 0; pos<64; pos++){
-    if(invaderField[pos]>0 && invaderField[pos]<10){
-      invaderField[pos]--;
+  for(byte pos = 0; pos<64; pos++){
+    if(aggressorField[pos]>0 && aggressorField[pos]<10){
+      aggressorField[pos]--;
     }
     if(pos<8){
       if(blasterCol[pos]>0 && blasterCol[pos]<10){
@@ -334,11 +342,11 @@ void updateAnimations(){
 void updateLEDs(){
 
   // update FastLED Buffer
-  for(int pos = 0; pos<64; pos++){
-    if(invaderField[pos]>0 && invaderField[pos]<10){
-      leds[IDX_Invader(pos)] = explodeAnimation[invaderField[pos]];
-    }else if(invaderField[pos]>9){
-      leds[IDX_Invader(pos)] =  invaderColor[invaderField[pos]-10];
+  for(byte pos = 0; pos<64; pos++){
+    if(aggressorField[pos]>0 && aggressorField[pos]<10){
+      leds[IDX_Invader(pos)] = explodeAnimation[aggressorField[pos]];
+    }else if(aggressorField[pos]>9){
+      leds[IDX_Invader(pos)] =  aggressorColor[aggressorField[pos]-10];
     }else{
       leds[IDX_Invader(pos)] = 0x000000;
     }
@@ -362,46 +370,46 @@ void updateLEDs(){
 
 void scootInvaders(){
 
-  if(invader_direction){
+  if(aggressor_direction){
 
     boolean edge_detect = false;
-    for(int i = 0; i < 72; i++){
-      if( i%8 == 0 && invaderField[i] > 9 ){
+    for(byte i = 0; i < 72; i++){
+      if( i%8 == 0 && aggressorField[i] > 9 ){
         edge_detect = true;
       }
     }
 
     if(edge_detect){
-      invader_direction = 0;
-      for(int i = 71; i > 0; i--){
-        invaderField[i] = invaderField[i-1];
+      aggressor_direction = 0;
+      for(byte i = 71; i > 0; i--){
+        aggressorField[i] = aggressorField[i-1];
       }
-      invaderField[0] = 0;
+      aggressorField[0] = 0;
     }else{
-      for(int i = 0; i < 71; i++){
-        invaderField[i] = invaderField[i+1];
+      for(byte i = 0; i < 71; i++){
+        aggressorField[i] = aggressorField[i+1];
       }
     }
     
   }else{
 
     boolean edge_detect = false;
-    for(int i = 0; i < 72; i++){
-      if( i%8 == 7 && invaderField[i] > 9 ){
+    for(byte i = 0; i < 72; i++){
+      if( i%8 == 7 && aggressorField[i] > 9 ){
         edge_detect = true;
       }
     }
 
     if(edge_detect){
-      invader_direction = 1;
-      for(int i = 0; i < 71; i++){
-        invaderField[i] = invaderField[i+1];
+      aggressor_direction = 1;
+      for(byte i = 0; i < 71; i++){
+        aggressorField[i] = aggressorField[i+1];
       }      
     }else{
-      for(int i = 71; i > 0; i--){
-        invaderField[i] = invaderField[i-1];
+      for(byte i = 71; i > 0; i--){
+        aggressorField[i] = aggressorField[i-1];
       }      
-      invaderField[0] = 0;
+      aggressorField[0] = 0;
     }
     
   }
@@ -410,27 +418,27 @@ void scootInvaders(){
 
 void dropInvaders(){
 
-  for(int i = 71; i > 7; i--){
-    invaderField[i] = invaderField[i-8];
+  for(byte i = 71; i > 7; i--){
+    aggressorField[i] = aggressorField[i-8];
   }
 
-  for(int i = 0; i < 8; i++){
-    invaderField[i] = 0;
+  for(byte i = 0; i < 8; i++){
+    aggressorField[i] = 0;
   }
   
 }
 
 void checkGamestate(){
 
-  boolean invadersDefeated = true;
-  for(int i = 0; i < 64; i++){
-    if(invaderField[i] > 0){
-      invadersDefeated = false;
+  boolean aggressorsDefeated = true;
+  for(byte i = 0; i < 64; i++){
+    if(aggressorField[i] > 0){
+      aggressorsDefeated = false;
     }
   }
 
   boolean playerDefeated = true;
-  for(int i = 0; i < 8; i++){
+  for(byte i = 0; i < 8; i++){
     if(blasterCol[i] > 0){
       playerDefeated = false;
     }
@@ -441,7 +449,7 @@ void checkGamestate(){
     dieAnimation();
     while(1);
     
-  }else if(invadersDefeated){
+  }else if(aggressorsDefeated){
 
     winAnimation();
     while(1);
@@ -450,13 +458,13 @@ void checkGamestate(){
   
 }
 
-void invaderFire(){
+void aggressorFire(){
 
-  for(int col = 56; col < 64; col++){
+  for(byte col = 56; col < 64; col++){
     
-    for(int row = 0; row < 7; row++){
+    for(byte row = 0; row < 7; row++){
 
-      if( invaderField[col-(8*row)] > 9 ){
+      if( aggressorField[col-(8*row)] > 9 ){
 
         if(random(0,100)>70){
 
@@ -475,8 +483,8 @@ void invaderFire(){
 
 void dieAnimation(){
 
-  for(int frame = 8; frame >= 0; frame--){
-    delay(500);
+  for(byte frame = 8; frame >= 0; frame--){
+    delay(45);
     fill_solid(leds, 136, explodeAnimation[frame]);
     FastLED.show();
   }

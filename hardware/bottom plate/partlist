@@ -1,0 +1,182 @@
+Partlist
+
+Exported from invaders.brd at 11/8/2019 12:06 AM
+
+EAGLE Version 9.5.1 Copyright (c) 1988-2019 Autodesk, Inc.
+
+Assembly variant: 
+
+Part     Value               Package                     Library                     Position (inch)       Orientation
+
+BT1                          BATTERY_18650-HOLDER        SparkFun-Batteries          (2 0.7)               R0
+C1       0.1uF               0603                        SparkFun-Capacitors         (1.805 1.21)          R180
+C2       1.0uF               0603                        SparkFun-Capacitors         (2.105 0.945)         R90
+C3       1.0uF               0603                        SparkFun-Capacitors         (1.705 1.175)         R90
+C4       18pF                0603                        SparkFun-Capacitors         (2.135 0.7)           R90
+C5       18pF                0603                        SparkFun-Capacitors         (1.835 0.7)           R270
+C6       22uF                0805                        SparkFun-Capacitors         (1.935 0.55)          R90
+C7       22uF                0805                        SparkFun-Capacitors         (1.85 0.55)           R90
+C8       22uF                0805                        SparkFun-Capacitors         (2.25 0.25)           R180
+C9       4.7uF               0603                        SparkFun-Capacitors         (2.25 1)              R0
+C10      4.7uF               0603                        SparkFun-Capacitors         (2.15 0.485)          R270
+D1       APA102-2020         APA102-2020                 SparkFun-LED                (0.25 4.65)           R0
+D2       APA102-2020         APA102-2020                 SparkFun-LED                (0.75 4.65)           R0
+D3       APA102-2020         APA102-2020                 SparkFun-LED                (1.25 4.65)           R0
+D4       APA102-2020         APA102-2020                 SparkFun-LED                (1.75 4.65)           R0
+D5       APA102-2020         APA102-2020                 SparkFun-LED                (2.25 4.65)           R0
+D6       APA102-2020         APA102-2020                 SparkFun-LED                (2.75 4.65)           R0
+D7       APA102-2020         APA102-2020                 SparkFun-LED                (3.25 4.65)           R0
+D8       APA102-2020         APA102-2020                 SparkFun-LED                (3.75 4.65)           R0
+D9       APA102-2020         APA102-2020                 SparkFun-LED                (0.25 4.45)           R0
+D10      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 4.45)           R0
+D11      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 4.45)           R0
+D12      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 4.45)           R0
+D13      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 4.45)           R0
+D14      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 4.45)           R0
+D15      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 4.45)           R0
+D16      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 4.45)           R0
+D17      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 4.25)           R0
+D18      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 4.25)           R0
+D19      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 4.25)           R0
+D20      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 4.25)           R0
+D21      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 4.25)           R0
+D22      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 4.25)           R0
+D23      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 4.25)           R0
+D24      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 4.25)           R0
+D25      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 4.05)           R0
+D26      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 4.05)           R0
+D27      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 4.05)           R0
+D28      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 4.05)           R0
+D29      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 4.05)           R0
+D30      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 4.05)           R0
+D31      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 4.05)           R0
+D32      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 4.05)           R0
+D33      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 3.85)           R0
+D34      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 3.85)           R0
+D35      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 3.85)           R0
+D36      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 3.85)           R0
+D37      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 3.85)           R0
+D38      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 3.85)           R0
+D39      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 3.85)           R0
+D40      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 3.85)           R0
+D41      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 3.65)           R0
+D42      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 3.65)           R0
+D43      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 3.65)           R0
+D44      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 3.65)           R0
+D45      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 3.65)           R0
+D46      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 3.65)           R0
+D47      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 3.65)           R0
+D48      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 3.65)           R0
+D49      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 3.45)           R0
+D50      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 3.45)           R0
+D51      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 3.45)           R0
+D52      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 3.45)           R0
+D53      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 3.45)           R0
+D54      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 3.45)           R0
+D55      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 3.45)           R0
+D56      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 3.45)           R0
+D57      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 3.25)           R0
+D58      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 3.25)           R0
+D59      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 3.25)           R0
+D60      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 3.25)           R0
+D61      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 3.25)           R0
+D62      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 3.25)           R0
+D63      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 3.25)           R0
+D64      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 3.25)           R0
+D65      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 3.05)           R0
+D66      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 3.05)           R0
+D67      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 3.05)           R0
+D68      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 3.05)           R0
+D69      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 3.05)           R0
+D70      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 3.05)           R0
+D71      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 3.05)           R0
+D72      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 3.05)           R0
+D73      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 2.65)           R0
+D74      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 2.65)           R0
+D75      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 2.65)           R0
+D76      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 2.65)           R0
+D77      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 2.65)           R0
+D78      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 2.65)           R0
+D79      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 2.65)           R0
+D80      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 2.65)           R0
+D81      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 2.45)           R0
+D82      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 2.45)           R0
+D83      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 2.45)           R0
+D84      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 2.45)           R0
+D85      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 2.45)           R0
+D86      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 2.45)           R0
+D87      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 2.45)           R0
+D88      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 2.45)           R0
+D89      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 2.25)           R0
+D90      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 2.25)           R0
+D91      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 2.25)           R0
+D92      APA102-2020         APA102-2020                 SparkFun-LED                (1.75 2.25)           R0
+D93      APA102-2020         APA102-2020                 SparkFun-LED                (2.25 2.25)           R0
+D94      APA102-2020         APA102-2020                 SparkFun-LED                (2.75 2.25)           R0
+D95      APA102-2020         APA102-2020                 SparkFun-LED                (3.25 2.25)           R0
+D96      APA102-2020         APA102-2020                 SparkFun-LED                (3.75 2.25)           R0
+D97      APA102-2020         APA102-2020                 SparkFun-LED                (0.25 2.05)           R0
+D98      APA102-2020         APA102-2020                 SparkFun-LED                (0.75 2.05)           R0
+D99      APA102-2020         APA102-2020                 SparkFun-LED                (1.25 2.05)           R0
+D100     APA102-2020         APA102-2020                 SparkFun-LED                (1.75 2.05)           R0
+D101     APA102-2020         APA102-2020                 SparkFun-LED                (2.25 2.05)           R0
+D102     APA102-2020         APA102-2020                 SparkFun-LED                (2.75 2.05)           R0
+D103     APA102-2020         APA102-2020                 SparkFun-LED                (3.25 2.05)           R0
+D104     APA102-2020         APA102-2020                 SparkFun-LED                (3.75 2.05)           R0
+D105     APA102-2020         APA102-2020                 SparkFun-LED                (0.25 1.85)           R0
+D106     APA102-2020         APA102-2020                 SparkFun-LED                (0.75 1.85)           R0
+D107     APA102-2020         APA102-2020                 SparkFun-LED                (1.25 1.85)           R0
+D108     APA102-2020         APA102-2020                 SparkFun-LED                (1.75 1.85)           R0
+D109     APA102-2020         APA102-2020                 SparkFun-LED                (2.25 1.85)           R0
+D110     APA102-2020         APA102-2020                 SparkFun-LED                (2.75 1.85)           R0
+D111     APA102-2020         APA102-2020                 SparkFun-LED                (3.25 1.85)           R0
+D112     APA102-2020         APA102-2020                 SparkFun-LED                (3.75 1.85)           R0
+D113     APA102-2020         APA102-2020                 SparkFun-LED                (0.25 1.65)           R0
+D114     APA102-2020         APA102-2020                 SparkFun-LED                (0.75 1.65)           R0
+D115     APA102-2020         APA102-2020                 SparkFun-LED                (1.25 1.65)           R0
+D116     APA102-2020         APA102-2020                 SparkFun-LED                (1.75 1.65)           R0
+D117     APA102-2020         APA102-2020                 SparkFun-LED                (2.25 1.65)           R0
+D118     APA102-2020         APA102-2020                 SparkFun-LED                (2.75 1.65)           R0
+D119     APA102-2020         APA102-2020                 SparkFun-LED                (3.25 1.65)           R0
+D120     APA102-2020         APA102-2020                 SparkFun-LED                (3.75 1.65)           R0
+D121     APA102-2020         APA102-2020                 SparkFun-LED                (0.25 1.45)           R0
+D122     APA102-2020         APA102-2020                 SparkFun-LED                (0.75 1.45)           R0
+D123     APA102-2020         APA102-2020                 SparkFun-LED                (1.25 1.45)           R0
+D124     APA102-2020         APA102-2020                 SparkFun-LED                (1.75 1.45)           R0
+D125     APA102-2020         APA102-2020                 SparkFun-LED                (2.25 1.45)           R0
+D126     APA102-2020         APA102-2020                 SparkFun-LED                (2.75 1.45)           R0
+D127     APA102-2020         APA102-2020                 SparkFun-LED                (3.25 1.45)           R0
+D128     APA102-2020         APA102-2020                 SparkFun-LED                (3.75 1.45)           R0
+D130     3A/40V/500mV        SMA-DIODE                   SparkFun-DiscreteSemi       (1.735 0.56)          R90
+D131     3A/40V/500mV        SMA-DIODE                   SparkFun-DiscreteSemi       (1.765 0.385)         R0
+D137     APA102-2020         APA102-2020                 SparkFun-LED                (0.25 2.85)           R0
+D138     APA102-2020         APA102-2020                 SparkFun-LED                (0.75 2.85)           R0
+D139     APA102-2020         APA102-2020                 SparkFun-LED                (1.25 2.85)           R0
+D140     APA102-2020         APA102-2020                 SparkFun-LED                (1.75 2.85)           R0
+D141     APA102-2020         APA102-2020                 SparkFun-LED                (2.25 2.85)           R0
+D142     APA102-2020         APA102-2020                 SparkFun-LED                (2.75 2.85)           R0
+D143     APA102-2020         APA102-2020                 SparkFun-LED                (3.25 2.85)           R0
+D144     APA102-2020         APA102-2020                 SparkFun-LED                (3.75 2.85)           R0
+J1                           USB-MICROB-PTH-MILL         SparkFun-Connectors         (2 0.15)              R0
+J2                           1X01NS_KIT                  SparkFun-Connectors         (0.1 0.4)             R0
+J3                           1X01NS_KIT                  SparkFun-Connectors         (3.9 0.4)             R0
+J4                           1X01NS_KIT                  SparkFun-Connectors         (0.1 1.05)            R0
+J5                           1X01NS_KIT                  SparkFun-Connectors         (3.9 1.05)            R0
+J6                           1X01NS_KIT                  SparkFun-Connectors         (0.1 0.1)             R0
+J7                           1X01NS_KIT                  SparkFun-Connectors         (3.9 0.1)             R0
+J8                           1X01NS_KIT                  SparkFun-Connectors         (3.9 4.8)             R0
+J9                           1X01NS_KIT                  SparkFun-Connectors         (0.1 4.8)             R0
+J10      AVR_SPI_PROG_3X2PTH 2X3                         SparkFun-Connectors         (1.45 1.1)            MR270
+L1       2.2UH3A             INDUCTOR_4X4MM              SparkFun-Coils              (2.24 1.14)           R270
+R1       10k                 0603@1                      SparkFun-Resistors          (1.745 0.775)         R270
+R2       22                  0603@1                      SparkFun-Resistors          (1.725 0.24)          R0
+R3       22                  0603@1                      SparkFun-Resistors          (1.725 0.295)         R0
+R4       750K                0603                        SparkFun-Resistors          (2.27 0.67)           R180
+R5       100k                0603                        SparkFun-Resistors          (2.27 0.735)          R0
+R6       750K                0603                        SparkFun-Resistors          (2.25 0.32)           R0
+RPROG    2.0k                0603                        SparkFun-Resistors          (2.27 0.8)            R0
+S2                           SWITCH_DPDT_SMD_AYZ0202     SparkFun-Switches           (0.9 0.2)             MR270
+U1       32U4                QFN-44-NOPAD_1:1-LESS_PASTE SparkFun-IC-Microcontroller (1.9 1)               R0
+U2       MCP73831            SOT23-5                     SparkFun-IC-Power           (2.25 0.9)            R90
+U3       PAM2401             MSOP8                       SparkFun-IC-Power           (2.25 0.485)          R0
+Y1       16MHz               CRYSTAL-SMD-5X3.2-4PAD      SparkFun-Clocks             (1.985 0.7)           R0
