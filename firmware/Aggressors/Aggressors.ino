@@ -60,6 +60,42 @@ const int lvl2[72] = {
   0, 0, 0, 0, 0, 0, 0, 0
 };
 
+const int lvl3[72] = {
+  13, 13, 0, 0, 0, 0, 0, 0,
+  11, 11, 0, 0, 0, 0, 0, 0,
+  10, 10, 0, 0, 0, 0, 0, 0,
+  12, 12, 0, 0, 0, 0, 0, 0,
+  11, 11, 0, 0, 0, 0, 0, 0,
+  10, 10, 0, 0, 0, 0, 0, 0,
+  13, 13, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const int lvl4[72] = {
+  13, 0, 10, 0, 13, 0, 10, 0,
+  0, 11, 0, 12, 0, 11, 0, 0,
+  10, 0, 13, 0, 10, 0, 13, 0,
+  0, 12, 0, 11, 0, 12, 0, 0,
+  0, 13, 12, 10, 12, 13, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const int lvl5[72] = {
+  10, 0, 0, 13, 13, 0, 0, 10,
+  10, 0, 0, 12, 12, 0, 0, 10,
+  10, 0, 0, 11, 11, 0, 0, 10,
+  10, 0, 0, 10, 10, 0, 0, 10,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0
+};
+
 /* AGGRESSOR FIELD
    -------------------------
    0 - Vacant Space
@@ -126,7 +162,7 @@ int animation_tick = 0;
 int aggressor_fire_tick = 0;
 boolean aggressor_direction = 0;
 boolean win = false;
-int lives = 3;
+int lives = 5;
 boolean play = true;
 int aggressor_x_speed = 300;
 int aggressor_y_speed = 2000;
@@ -152,13 +188,16 @@ void loop() {
 
   splash();
   
-  lives = 3;
+  lives = 5;
   for(int i = 0; i < 72; i++){
     beamField[i] = 0;
   }
   
   level_1();
   level_2();
+  level_3();
+  level_4();
+  level_5();
   
 }
 
@@ -305,12 +344,20 @@ void level_2() {
 
 void level_3() {
 
+  aggressor_x_speed -= 100;
+  aggressor_y_speed -= 100;
   win = false;
 
   while (lives > 0 && win == false) {
 
+    play = true;
+    
     for (int i = 0; i < 72; i++) {
       beamField[i] = 0;
+    }
+
+    for(int i = 0; i < 72; i++){
+      aggressorField[i] = 0;
     }
 
     for (int i = 0; i < 8; i++) {
@@ -319,7 +366,79 @@ void level_3() {
 
     blasterCol[3] = 10;
 
-    memcpy(aggressorField, lvl1, 72);
+    memcpy(aggressorField, lvl3, 72);
+
+    gameloop();
+
+    if (win) {
+      winAnimation();
+    } else {
+      dieAnimation();
+    }
+
+  }
+
+}
+
+void level_4() {
+
+  win = false;
+
+  while (lives > 0 && win == false) {
+
+    play = true;
+    
+    for (int i = 0; i < 72; i++) {
+      beamField[i] = 0;
+    }
+
+    for(int i = 0; i < 72; i++){
+      aggressorField[i] = 0;
+    }
+
+    for (int i = 0; i < 8; i++) {
+      blasterCol[i] = 0;
+    }
+
+    blasterCol[3] = 10;
+
+    memcpy(aggressorField, lvl4, 72);
+
+    gameloop();
+
+    if (win) {
+      winAnimation();
+    } else {
+      dieAnimation();
+    }
+
+  }
+
+}
+
+void level_5() {
+
+  win = false;
+
+  while (lives > 0 && win == false) {
+
+    play = true;
+    
+    for (int i = 0; i < 72; i++) {
+      beamField[i] = 0;
+    }
+
+    for(int i = 0; i < 72; i++){
+      aggressorField[i] = 0;
+    }
+
+    for (int i = 0; i < 8; i++) {
+      blasterCol[i] = 0;
+    }
+
+    blasterCol[3] = 10;
+
+    memcpy(aggressorField, lvl5, 72);
 
     gameloop();
 
